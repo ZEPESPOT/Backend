@@ -1,11 +1,9 @@
-# Example
-* Example Backend Server
+# Button
+* Button Backend Server
 
 * RESTful (FormUrlEncoded)방식으로 작성된 프로젝트 입니다.
 
-* Request URL은 <http://www.example.com:PORT> 입니다.
-
-* npm run cluster 명령어로 PM2 Cluster 서버를 가동할 수 있습니다.
+* Request URL은 <http://soylatte.kr:5000> 입니다.
 
 * 외부API, DB계정 등의 정보는 src/config/properties.json에 기술되어 있습니다.
 
@@ -14,27 +12,19 @@
 
 ### Hosting
     
-    None
+    Personal Develop Server
     
 ### OS
 
-    None
+    Ubuntu 16.04 LTS
 
 ### Framework
 
-    None
+    Node.JS
     
 ### DB
 
-    None
-    
-### DB Service Port
-
-    None
-    
-### DB Account
-
-    None
+    MySQL 8.0
 
 
 ## Status Code
