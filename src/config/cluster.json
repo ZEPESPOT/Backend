@@ -1,0 +1,9 @@
+{
+  "apps": [{
+    "name": "example",
+    "script": "src/app.js",
+    "watch": false,
+    "exec_mode": "cluster",
+    "instances": 0
+  }]
+}
