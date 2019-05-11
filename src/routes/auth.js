@@ -12,9 +12,10 @@ module.exports = (router, logger, db, RandomString) =>{
             }
             else{
                 var new_user = new db.User({
+                    username : body.username,
                     email : body.email,
                     password : body.password,
-                    usertoken : RandomString.generate(10)
+                    zepeto_code: body.zepeto_code
                 })
 
                 new_user.save((err)=>{

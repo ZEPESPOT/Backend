@@ -2,9 +2,9 @@
   "running_port" : 5000,
   "static_url" : "http://soylatte.kr:5000",
   "dbconfig": {
-    "db_name" : "button",
+    "db_name" : "zepespot",
     "db_host" : "localhost",
-    "db_port" : 3306,
+    "db_port" : 27017,
     "db_user" : "root",
     "db_password" : "tlqkftprtm"
   },

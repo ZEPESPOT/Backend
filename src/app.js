@@ -4,6 +4,7 @@ var session = require('express-session')
 var morgan = require('morgan')
 var passport = require('passport')
 var RandomString = require('randomstring')
+var multer = require('multer')
 var AppFacebookStrategy = require('passport-facebook-token')
 var app = express()
 
@@ -22,6 +23,7 @@ app.use(morgan('dev'))
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/photo', express.static('src/static/photo'))
 
 app.use(session({
     secret:'!!@#!@%!@^!@#$!@#%!@#^!!&%#*&@#!#SESSION!@#$!@#%!@#%!@#%SECRET!@$!@$!%!@#%',
@@ -47,6 +49,9 @@ app.listen(PORT, (err)=>{
 
 app.use('/', require('./routes/index')(express.Router(), logger))
 app.use('/auth', require('./routes/auth')(express.Router(), logger, db, RandomString))
+app.use('/community', require('./routes/community')(express.Router(), logger, db, multer, properties, RandomString))
+app.use('/course', require('./routes/course')(express.Router(), logger, db))
+app.use('/gallery', require('./routes/gallery')(express.Router(), logger, db, multer, properties, RandomString))
 
 require('./modules/passport')(app, logger, passport, AppFacebookStrategy, properties)
 
