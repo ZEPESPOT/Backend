@@ -1,52 +1,30 @@
-const mysql = require('mysql')
-const syncmysql = require('sync-mysql')
-const properties = require('../config/properties.json')
-const logger = require('./logger')
+var mongoose = require('mongoose');
+var logger = require('../modules/logger')
 
-const sqlConfig = {
-    host: properties.dbconfig.db_host,
-    port: properties.dbconfig.db_port,
-    user: properties.dbconfig.db_user,
-    password: properties.dbconfig.db_password,
-    database: properties.dbconfig.db_name
-}
-
-var syncsql = new syncmysql(sqlConfig);
-var sql = mysql.createConnection(sqlConfig);
-
-var db = sql.connect((err)=>{
-    if (err) {
-        logger.fatal('MySQL Connection Error');
-        throw err;
+var db = mongoose.connect('mongodb://localhost/zepespot', { useNewUrlParser: true }, (err)=>{
+    if(err){
+        logger.fatal("DB Error!")
+        throw err
     }
     else {
-        logger.info('DB Connect Success!');
+        logger.info('DB Connect Success!')
     }
 });
 
-function handleDisconnect(client) {
+mongoose.Promise = global.Promise;
 
-    client.on('error', (error)=>{
 
-        if (!error.fatal) return;
+const UserSchema = new mongoose.Schema({
+    email : {type : String},
+    password : {type : String},
+    usertoken : {type : String},
+})
 
-        if (error.code !== 'PROTOCOL_CONNECTION_LOST') throw err;
 
-        logger.info('> Re-connecting lost MySQL connection');
 
-        setTimeout(()=>{
-            sql.destroy()
-            sql = mysql.createConnection(sqlConfig)
-            handleDisconnect(sql)
-            db = sql.connect()
-            exports.db = db
-            exports.sql = sql
-        }, 1000);
-    })
-};
+const User = mongoose.model('user', UserSchema)
 
-handleDisconnect(sql)
-
+exports.User = User
 exports.db = db
-exports.sql = sql
-exports.syncsql = syncsql
+
+

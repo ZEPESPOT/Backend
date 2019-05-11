@@ -7,5 +7,9 @@
     "db_port" : 3306,
     "db_user" : "root",
     "db_password" : "tlqkftprtm"
+  },
+  "facebook":{
+    "key":"2150906341814643",
+    "secret":"37588e471de6d707366ada1373df6d45"
   }
 }

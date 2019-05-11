@@ -2,6 +2,9 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var session = require('express-session')
 var morgan = require('morgan')
+var passport = require('passport')
+var RandomString = require('randomstring')
+var AppFacebookStrategy = require('passport-facebook-token')
 var app = express()
 
 var db = require('./modules/db')
@@ -9,11 +12,16 @@ var logger = require('./modules/logger')
 var properties = require('./config/properties.json')
 var PORT = process.env.PORT || properties.running_port
 
+
 app.use(bodyParser.urlencoded({
     extended : true
 }))
 
 app.use(morgan('dev'))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(session({
     secret:'!!@#!@%!@^!@#$!@#%!@#^!!&%#*&@#!#SESSION!@#$!@#%!@#%!@#%SECRET!@$!@$!%!@#%',
@@ -38,5 +46,7 @@ app.listen(PORT, (err)=>{
 })
 
 app.use('/', require('./routes/index')(express.Router(), logger))
+app.use('/auth', require('./routes/auth')(express.Router(), logger, db, RandomString))
 
+require('./modules/passport')(app, logger, passport, AppFacebookStrategy, properties)
 
