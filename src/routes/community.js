@@ -68,7 +68,7 @@ module.exports = (router, logger, db, multer, properties, RandomString) =>{
     router.post('/post/view', (req, res)=>{
         var body = req.body
 
-        db.Post.findOne({posttoken : body.posttoken}).populate('writer').populate('comments').exec((err, data)=>{
+        db.Post.findOne({_id : body.posttoken}).populate('writer').populate('comments').exec((err, data)=>{
             if(err) throw err
             else if(data){
                 res.status(200).send(data)
