@@ -55,7 +55,7 @@ const SequenceSchema = new mongoose.Schema({
     latitude : {type : Number},
     longitude : {type : Number},
     photo : {type : String},
-    cleared : {type : Boolean}
+    cleared : {type : Boolean, default:false}
 })
 
 const Sequence = mongoose.model('sequence', SequenceSchema)
